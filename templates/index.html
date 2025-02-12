@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <!-- Connection & Login -->
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">Connection & Login</div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('verify_connection') }}">
+                    <h5>Verify Connection</h5>
+                    <button type="submit" class="btn btn-info mb-3">Test Connection</button>
+                </form>
+
+                <hr>
+
+                <form method="POST" action="{{ url_for('login') }}">
+                    <h5>User Login</h5>
+                    <div class="mb-3">
+                        <input type="text" name="username" class="form-control" placeholder="Username" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Website Management -->
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">Website Management</div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('create_website') }}">
+                    <h5>Create Website</h5>
+                    <div class="mb-3">
+                        <input type="text" name="domain" class="form-control" placeholder="Domain" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" name="email" class="form-control" placeholder="Owner Email" required>
+                    </div>
+
+                    <!-- Package selection (default 'Default') -->
+                    <div class="mb-3">
+                        <label for="package">Package</label>
+                        <select name="package" class="form-select" id="package">
+                            <option value="Default" selected>Default</option>
+                            <option value="Package1">Package1</option>
+                            <option value="Package2">Package2</option>
+                            <!-- Add more if needed -->
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="text" name="owner" class="form-control" placeholder="Owner Username" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" name="password" class="form-control" placeholder="Owner Password" required>
+                    </div>
+
+                    <!-- PHP Version dropdown -->
+                    <div class="mb-3">
+                        <label for="phpVersion">PHP Version</label>
+                        <select name="phpVersion" class="form-select" id="phpVersion">
+                            <option value="80">8.0</option>
+                            <option value="81">8.1</option>
+                            <option value="82">8.2</option>
+                            <option value="83">8.3</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Create Website</button>
+                </form>
+
+                <hr>
+
+                <form method="POST" action="{{ url_for('delete_website') }}">
+                    <h5>Delete Website</h5>
+                    <div class="mb-3">
+                        <input type="text" name="domain" class="form-control" placeholder="Domain" required>
+                    </div>
+                    <button type="submit" class="btn btn-danger">Delete Website</button>
+                </form>
+
+                <hr>
+
+                <form method="POST" action="{{ url_for('change_package') }}">
+                    <h5>Change Package</h5>
+                    <div class="mb-3">
+                        <input type="text" name="website" class="form-control" placeholder="Website Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="package" class="form-control" placeholder="New Package" required>
+                    </div>
+                    <button type="submit" class="btn btn-warning">Update Package</button>
+                </form>
+
+                <hr>
+
+                <form method="POST" action="{{ url_for('submit_status') }}">
+                    <h5>Website Status</h5>
+                    <div class="mb-3">
+                        <input type="text" name="website" class="form-control" placeholder="Website Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <select name="state" class="form-select" required>
+                            <option value="Suspend">Suspend</option>
+                            <option value="Un-Suspend">Un-Suspend</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-warning">Update Status</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Management -->
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">User Management</div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('create_user') }}">
+                    <h5>Create User</h5>
+                    <div class="mb-3">
+                        <input type="text" name="first_name" class="form-control" placeholder="First Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="last_name" class="form-control" placeholder="Last Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="email" name="email" class="form-control" placeholder="Email" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="username" class="form-control" placeholder="Username" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" name="password" class="form-control" placeholder="Password" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="number" name="limit" class="form-control" placeholder="Website Limit" required>
+                    </div>
+                    <div class="mb-3">
+                        <select name="acl" class="form-select" required>
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <select name="security_level" class="form-select" required>
+                            <option value="HIGH">High Security</option>
+                            <option value="MEDIUM">Medium Security</option>
+                            <option value="LOW">Low Security</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-success">Create User</button>
+                </form>
+
+                <hr>
+
+                <form method="POST" action="{{ url_for('get_user_info') }}">
+                    <h5>Get User Info</h5>
+                    <div class="mb-3">
+                        <input type="text" name="username" class="form-control" placeholder="Username" required>
+                    </div>
+                    <button type="submit" class="btn btn-info">Get Info</button>
+                </form>
+
+                {% if session.user_info %}
+                <div class="mt-3 p-2 bg-light rounded">
+                    <pre>{{ session.user_info|tojson(indent=2) }}</pre>
+                </div>
+                {% endif %}
+
+                <hr>
+
+                <form method="POST" action="{{ url_for('change_password') }}">
+                    <h5>Change Password</h5>
+                    <div class="mb-3">
+                        <input type="text" name="username" class="form-control" placeholder="Username" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" name="password" class="form-control" placeholder="New Password" required>
+                    </div>
+                    <button type="submit" class="btn btn-warning">Change Password</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Firewall Management -->
+        <div class="card">
+            <div class="card-header">Firewall Management</div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('add_firewall_rule') }}">
+                    <h5>Add Firewall Rule</h5>
+                    <div class="mb-3">
+                        <input type="text" name="name" class="form-control" placeholder="Rule Name" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="protocol" class="form-control" placeholder="Protocol" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="port" class="form-control" placeholder="Port" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="ip" class="form-control" placeholder="IP Address" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Rule</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
